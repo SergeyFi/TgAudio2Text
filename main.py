@@ -1,5 +1,5 @@
 from telethon import TelegramClient, events
-from config import API_ID, API_HASH, SESSION_NAME, TARGET_USER
+from config import API_ID, API_HASH, SESSION_NAME, TARGET_USERS
 from transcriber import transcribe
 import asyncio
 import logging
@@ -13,11 +13,14 @@ async def main():
     client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
     await client.start()
 
-    @client.on(events.NewMessage(from_users=TARGET_USER))
+    @client.on(events.NewMessage(from_users=TARGET_USERS))
     async def handler(event):
         msg = event.message
+        sender = await event.get_sender()
+        sender_name = getattr(sender, "username", "Unknown")
+
         if msg.voice:
-            logging.info(f"Received a voice message from {TARGET_USER}")
+            logging.info(f"Received a voice message from {sender_name}")
 
             # Create a temporary file with the extension .ogg
             with tempfile.NamedTemporaryFile(suffix=".ogg", delete=False) as tmp_file:
@@ -36,14 +39,14 @@ async def main():
                 text = transcribe(voice_path)
                 logging.info(f"Transcript: {text}")
 
-                await client.send_message(entity=TARGET_USER, message=text, reply_to=msg.id)
+                await client.send_message(entity=sender_name, message=text, reply_to=msg.id)
 
             except Exception as e:
                 logging.error(f"Decryption error: {e}")
             finally:
                 os.remove(voice_path)
 
-    print("Waiting for incoming messages... (press Ctrl+C to exit)")
+    logging.info("Waiting for incoming messages...")
     await client.run_until_disconnected()
 
 if __name__ == "__main__":
