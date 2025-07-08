@@ -2,6 +2,8 @@ FROM python:3.11-slim
 
 # Installation system dependencies
 RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    sox \
     git \
     curl \
     unzip \
