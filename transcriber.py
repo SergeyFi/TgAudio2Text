@@ -1,14 +1,14 @@
 import logging
 from faster_whisper import WhisperModel
+from config import MODEL_SIZE
 import time
 
-model_size = "tiny"
-model = WhisperModel(model_size, device="cpu", compute_type="int8")
+model = WhisperModel(MODEL_SIZE, device="cpu", compute_type="int8")
 
 logging.basicConfig(level=logging.INFO)
 
 def transcribe(audio_path: str) -> str:
-    segments, info = model.transcribe(audio_path, beam_size=5)
+    segments, info = model.transcribe(audio_path, beam_size=5, language="ru", vad_filter=True, temperature=0.2)
     
     start_time = time.time()
 
