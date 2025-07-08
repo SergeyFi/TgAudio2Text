@@ -1,7 +1,10 @@
 FROM python:3.11-slim
 
 # Installation system dependencies
-RUN apt-get update && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    sox \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Setting the working directory
 WORKDIR /app
