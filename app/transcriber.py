@@ -4,7 +4,7 @@ import os
 import tempfile
 import subprocess
 from faster_whisper import WhisperModel, BatchedInferencePipeline
-from config import MODEL_SIZE
+from app.config import MODEL_SIZE
 
 model = WhisperModel(MODEL_SIZE, device="cpu", compute_type="int8")
 batched_model = BatchedInferencePipeline(model=model)

@@ -4,8 +4,8 @@ import tempfile
 import os
 import subprocess
 from telethon import TelegramClient, events
-from config import API_ID, API_HASH, SESSION_NAME, TARGET_USERS
-from transcriber import transcribe
+from app.config import API_ID, API_HASH, SESSION_NAME, TARGET_USERS
+from app.transcriber import transcribe
 
 
 logging.basicConfig(level=logging.INFO)
