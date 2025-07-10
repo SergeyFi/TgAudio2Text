@@ -1,0 +1,27 @@
+# Base
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Docker
+Dockerfile.dev
+.devcontainer/
+
+# Private
+.env
+.env.*
+
+# Other
+*.bak
+*.tmp
+*.swp

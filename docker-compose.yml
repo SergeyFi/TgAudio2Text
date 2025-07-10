@@ -1,0 +1,11 @@
+services:
+  tg-audio2text:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tg-audio2text:latest
+    container_name: tg-audio2text
+    command: python main.py
+    env_file:
+      - .env
+    restart: unless-stopped
