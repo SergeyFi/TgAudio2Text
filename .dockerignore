@@ -20,6 +20,7 @@ Dockerfile.dev
 # Private
 .env
 .env.*
+TgAudio2Text.session
 
 # Other
 *.bak
